@@ -25,7 +25,7 @@ module Wordpress
     def get_post(post_id)
       Post.new(api_call("metaWeblog.getPost", post_id, @user, @password))
     end #get_post
-
+		
     def recent_posts(number_of_posts)
       blog_api_call("metaWeblog.getRecentPosts", number_of_posts).collect do |struct|
         Post.from_struct(:metaWeblog, struct)
@@ -70,16 +70,19 @@ module Wordpress
     end
 
     def get_page_list
-      page_list = blog_api_call("wp.getPages").collect do |struct|
+      page_list = blog_api_call("wp.getPages",@id,@user,@password).collect do |struct|
         Wordpress::Page.from_struct(:wp, struct)
       end
       # link pages list with each other
       page_list.each do |page|
         page.parent = page_list.find{|p| p.id == page.parent_id} if page.parent_id
       end
-
       page_list
     end #get_page_list
+    
+    def get_page(page_id)
+      Wordpress::Page.from_struct(:wp,blog_api_call("wp.getPage",@id,page_id,@user,@password))
+    end #get_page
 
     def upload_file(file)
       struct = {
@@ -90,7 +93,7 @@ module Wordpress
       }
       return blog_api_call("wp.uploadFile", struct)
     end
-
+ 
     private
     def process_images(item)
       doc = Nokogiri::HTML::DocumentFragment.parse(item.content)
@@ -119,7 +122,7 @@ module Wordpress
 
     def blog_api_call(method_name, *args)
       begin
-        return @client.call(method_name, @id, @user, @password, *args)
+        return @client.call(method_name,*args)
       rescue XMLRPC::FaultException
         log.log_exception "Error while calling #{method_name}", $!
         raise APICallException, "Error while calling #{method_name}"

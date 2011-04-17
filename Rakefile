@@ -5,12 +5,12 @@ begin
   require 'jeweler'
 
   Jeweler::Tasks.new do |gem|
-    gem.name = "wordpress-xmlrpc"
+    gem.name = "wordpress-xmlrpc-saten"
     gem.summary = %Q{This gem is supposed to simplify wordpress xmlrpc interaction}
-    gem.description = %Q{Please do not fork it before directly contacint}
-    gem.email = "alecnmk@gmail.com"
-    gem.homepage = "http://github.com/alecnmk/wordpress-xmlrpc"
-    gem.authors = ["Alexander Naumenko"]
+    gem.description = %Q{Fork of discontinued wordpress-xmlrpc gem from Alexander Naumenko }
+    gem.email = "saten.r@gmail.com"
+    gem.homepage = "http://github.com/saten/wordpress-xmlrpc"
+    gem.authors = ["Sante Rotondi"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_dependency 'log4r', '>=1.1.8'
     gem.add_dependency 'mimemagic', '>=0.1.5'
