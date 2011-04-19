@@ -9,13 +9,16 @@ module Wordpress
         :description    => :content,
         :mt_excerpt     => :excerpt,
         :dateCreated    => :creation_date,
-        :post_state     => :struct_published
+        :post_state     => :struct_published,
+	:wp_author_display_name => :author_display_name,
+	:permaLink 	=> :permaLink,
+	:post_status 	=> :post_status
       },
       :wp => {
       }
     }
 
-    attr_accessor(:published)
+    attr_accessor(:published,:author_display_name,:permaLink,:post_status)
 
     def struct_published=(value)
       @published = value if [true, false].include? value

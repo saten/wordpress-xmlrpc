@@ -27,11 +27,11 @@ module Wordpress
     end #initialize
 
     def get_post(post_id)
-      Post.new(api_call("metaWeblog.getPost", post_id, @user, @password))
+      Wordpress::Post.from_struct(:metaWeblog,api_call("metaWeblog.getPost", post_id, @user, @password))
     end #get_post
 		
     def recent_posts(number_of_posts)
-      blog_api_call("metaWeblog.getRecentPosts", number_of_posts).collect do |struct|
+      blog_api_call("metaWeblog.getRecentPosts",@id,@user,@password, number_of_posts).collect do |struct|
         Post.from_struct(:metaWeblog, struct)
       end
     end #recent_posts
@@ -40,9 +40,9 @@ module Wordpress
       process_images(item) unless item.images.nil?
       case item
       when Wordpress::Post
-        item.id = blog_api_call("metaWeblog.newPost", item.to_struct(:metaWeblog), true).to_i
+        item.id = blog_api_call("metaWeblog.newPost", @id,@user,@password,item.to_struct(:metaWeblog), true).to_i
       when Wordpress::Page
-        item.id = blog_api_call("wp.newPage", item.to_struct(:wp), true).to_i
+        item.id = blog_api_call("wp.newPage", @id,@user,@password,item.to_struct(:wp), true).to_i
       else
         raise "Unknown item type: #{item}"
       end
