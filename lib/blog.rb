@@ -19,7 +19,11 @@ module Wordpress
 
       @password = check_param(params, :password)
 
-      @client = XMLRPC::Client.new2(URI.join(@blog_uri.to_s, @xmlrpc_path).to_s)
+      if params[:proxy]
+	@client = XMLRPC::Client.new2(URI.join(@blog_uri.to_s, @xmlrpc_path).to_s,params[:proxy])
+      else
+	@client = XMLRPC::Client.new2(URI.join(@blog_uri.to_s, @xmlrpc_path).to_s)
+      end
     end #initialize
 
     def get_post(post_id)
@@ -70,7 +74,7 @@ module Wordpress
     end
 
     def get_page_list
-      page_list = blog_api_call("wp.getPages",@id,@user,@password).collect do |struct|
+      page_list = blog_api_call("wp.getPageList",@id,@user,@password).collect do |struct|
         Wordpress::Page.from_struct(:wp, struct)
       end
       # link pages list with each other
