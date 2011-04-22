@@ -87,7 +87,9 @@ module Wordpress
     def get_page(page_id)
       Wordpress::Page.from_struct(:wp,blog_api_call("wp.getPage",@id,page_id,@user,@password))
     end #get_page
-
+    def get_categories
+      return api_call('wp.getCategories',@id,@user,@password)
+    end
     def upload_file(file)
       struct = {
         :name => File.basename(file.path),
