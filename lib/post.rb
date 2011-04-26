@@ -14,13 +14,14 @@ module Wordpress
 	:permaLink 	=> :permaLink,
 	:post_status 	=> :post_status,
 	:mt_keywords	=> :tags,
-	:categories	=> :categories
+	:categories	=> :categories,
+        :wp_author_id	=> :user_id
       },
       :wp => {
       }
     }
 
-    attr_accessor(:published,:author_display_name,:permaLink,:post_status,:categories)
+    attr_accessor(:published,:author_display_name,:permaLink,:post_status,:categories,:user_id)
     
     def tags
       return @tags.split(',') if @tags

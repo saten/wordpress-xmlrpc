@@ -73,6 +73,10 @@ module Wordpress
       end
     end
 
+    def get_authors
+      blog_api_call("wp.getAuthors",@id,@user,@password)
+    end
+    
     def get_page_list
       page_list = blog_api_call("wp.getPageList",@id,@user,@password).collect do |struct|
         Wordpress::Page.from_struct(:wp, struct)
