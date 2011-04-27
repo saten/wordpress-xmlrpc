@@ -81,6 +81,10 @@ module Wordpress
       blog_api_call("wp.getPostStatusList",@id,@user,@password)
     end
     
+    def get_users_blogs
+	blog_api_call("wp.getUsersBlogs",@user,@password)
+    end
+ 
     def get_page_list
       page_list = blog_api_call("wp.getPageList",@id,@user,@password).collect do |struct|
         Wordpress::Page.from_struct(:wp, struct)
