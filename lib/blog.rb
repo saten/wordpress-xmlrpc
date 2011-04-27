@@ -67,7 +67,7 @@ module Wordpress
       when Wordpress::Post
         return api_call("blogger.deletePost", "", item.id, @user, @password, true)
       when Wordpress::Page
-        return blog_api_call("wp.deletePage", item.id)
+        return blog_api_call("wp.deletePage", @id,@user,@password, item.id)
       else
         raise "Unknown item type: #{item}"
       end
@@ -75,6 +75,10 @@ module Wordpress
 
     def get_authors
       blog_api_call("wp.getAuthors",@id,@user,@password)
+    end
+    
+    def get_post_status_list
+      blog_api_call("wp.getPostStatusList",@id,@user,@password)
     end
     
     def get_page_list
