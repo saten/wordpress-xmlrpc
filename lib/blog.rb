@@ -36,13 +36,13 @@ module Wordpress
       end
     end #recent_posts
 
-    def publish(item)
+    def publish(item,published=true)
       process_images(item) unless item.images.nil?
       case item
       when Wordpress::Post
-        item.id = blog_api_call("metaWeblog.newPost", @id,@user,@password,item.to_struct(:metaWeblog), true).to_i
+        item.id = blog_api_call("metaWeblog.newPost", @id,@user,@password,item.to_struct(:metaWeblog), published).to_i
       when Wordpress::Page
-        item.id = blog_api_call("wp.newPage", @id,@user,@password,item.to_struct(:wp), true).to_i
+        item.id = blog_api_call("wp.newPage", @id,@user,@password,item.to_struct(:wp), published).to_i
       else
         raise "Unknown item type: #{item}"
       end
