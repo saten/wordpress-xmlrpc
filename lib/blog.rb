@@ -111,7 +111,47 @@ module Wordpress
       }
       return blog_api_call("wp.uploadFile", struct)
     end
- 
+
+    def get_comment_status_list
+      return api_call('wp.getCommentStatusList',@id,@user,@password)
+    end
+
+    def get_comment_count(post_id)
+      return api_call('wp.getCommentCount',@id,@user,@password,post_id)
+    end
+
+    def get_comments(options={})
+      # post status list http://codex.wordpress.org/XML-RPC_wp#wp.getCommentStatusList
+      #  struct
+      #  string hold
+      #  string approve
+      #  string spam
+      #
+      options[:post_id]||=0
+      options[:status]||="approve"
+      #options[:offset]||=0
+      #options[:number]||=0
+      api_call('wp.getComments',@id,@user,@password,options)
+    end
+
+    def get_comment(comment_id)
+      api_call('wp.getComment',@id,@user,@password,comment_id)
+    end
+    def edit_comment(comment)
+      options={}
+      options['status']=comment['status']
+      #options['date_created_gmt']=comment['date_created_gmt'] //date should be GMT, or you get a 500. let's just skip this for now :)
+      options['content']=comment['content']
+      options['author']=comment['author']
+      options['author_url']=comment['author_url']
+      options['author_email']=comment['author_email']
+      api_call('wp.editComment',@id,@user,@password,comment['comment_id'],options)
+    end
+
+    def delete_comment(comment_id)
+      api_call('wp.deleteComment',@id,@user,@password,comment_id)
+    end
+
     private
     def process_images(item)
       doc = Nokogiri::HTML::DocumentFragment.parse(item.content)
