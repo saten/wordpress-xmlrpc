@@ -13,7 +13,8 @@ module Wordpress
         :mt_excerpt => :excerpt,
         :dateCreated => :creation_date,
         :page_parent_id => :parent_id,
-        :wp_page_parent_id => :parent_id
+        :wp_page_parent_id => :parent_id,
+	:wp_slug => :slug
       }
     }
 

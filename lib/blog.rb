@@ -102,6 +102,12 @@ module Wordpress
     def get_categories
       return api_call('wp.getCategories',@id,@user,@password)
     end
+
+    def new_category(category)
+      return api_call('wp.newCategory',@id,@user,@password,category)
+    end
+
+
     def upload_file(file)
       struct = {
         :name => File.basename(file.path),

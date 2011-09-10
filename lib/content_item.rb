@@ -61,7 +61,8 @@ module Wordpress
                       :title,
                       :content,
                       :excerpt,
-                      :images
+                      :images,
+		      :slug
                       )
         attr_reader(:creation_date)
       end
