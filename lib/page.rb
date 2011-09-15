@@ -14,11 +14,13 @@ module Wordpress
         :dateCreated => :creation_date,
         :page_parent_id => :parent_id,
         :wp_page_parent_id => :parent_id,
-	:wp_slug => :slug
+	:wp_slug => :slug,
+	:page_status => :page_status
       }
     }
 
     attr_accessor(:parent_id, :published)
+    attr_accessor :page_status
     attr_reader(:parent)
 
     def parent=(page)

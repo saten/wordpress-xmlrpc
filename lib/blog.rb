@@ -95,6 +95,18 @@ module Wordpress
       end
       page_list
     end #get_page_list
+
+    def get_pages
+      page_list =  blog_api_call("wp.getPages",@id,@user,@password,1000).collect do |struct|
+        Wordpress::Page.from_struct(:wp, struct)
+      end
+      # link pages list with each other
+      page_list.each do |page|
+        page.parent = page_list.find{|p| p.id == page.parent_id} if page.parent_id
+      end
+      page_list
+
+    end
     
     def get_page(page_id)
       Wordpress::Page.from_struct(:wp,blog_api_call("wp.getPage",@id,page_id,@user,@password))
