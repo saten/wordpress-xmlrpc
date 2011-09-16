@@ -15,12 +15,13 @@ module Wordpress
         :page_parent_id => :parent_id,
         :wp_page_parent_id => :parent_id,
 	:wp_slug => :slug,
-	:page_status => :page_status
+	:page_status => :page_status,
+	:wp_page_order => :page_order
       }
     }
 
     attr_accessor(:parent_id, :published)
-    attr_accessor :page_status
+    attr_accessor :page_status,:page_order
     attr_reader(:parent)
 
     def parent=(page)
