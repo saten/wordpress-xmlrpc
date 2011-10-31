@@ -118,7 +118,9 @@ module Wordpress
     def new_category(category)
       return api_call('wp.newCategory',@id,@user,@password,category)
     end
-
+    def delete_category(category_id)
+      return api_call('wp.deleteCategory',@id,@user,@password,category_id)
+    end
 
     def upload_file(file)
       struct = {
