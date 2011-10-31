@@ -17,11 +17,12 @@ module Wordpress
 	:wp_slug => :slug,
 	:page_status => :page_status,
 	:wp_page_order => :page_order
+	:wp_author_id => :author_id
       }
     }
 
     attr_accessor(:parent_id, :published)
-    attr_accessor :page_status,:page_order
+    attr_accessor :page_status,:page_order,:author_id
     attr_reader(:parent)
 
     def parent=(page)
