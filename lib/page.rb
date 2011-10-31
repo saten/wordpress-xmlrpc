@@ -16,7 +16,7 @@ module Wordpress
         :wp_page_parent_id => :parent_id,
 	:wp_slug => :slug,
 	:page_status => :page_status,
-	:wp_page_order => :page_order
+	:wp_page_order => :page_order,
 	:wp_author_id => :author_id
       }
     }
