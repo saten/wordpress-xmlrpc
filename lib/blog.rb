@@ -194,7 +194,7 @@ module Wordpress
         return @client.call(method_name, *args)
       rescue XMLRPC::FaultException
         log.log_exception "Error while calling #{method_name}", $!
-        raise APICallException, "Error while calling #{method_name}"
+        raise APICallException, "Error while calling #{method_name} (#{$!.message})"
       end
     end #api_call
 
@@ -203,7 +203,7 @@ module Wordpress
         return @client.call(method_name,*args)
       rescue XMLRPC::FaultException
         log.log_exception "Error while calling #{method_name}", $!
-        raise APICallException, "Error while calling #{method_name}"
+        raise APICallException, "Error while calling #{method_name} (#{$!.message})"
       end
     end #call_client
   end
